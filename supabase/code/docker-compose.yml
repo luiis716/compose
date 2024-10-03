@@ -9,7 +9,7 @@ version: "3.8"
 
 services:
   studio:
-    image: supabase/studio:20240729-ce42139
+    image: supabase/studio:latest
     restart: unless-stopped
     healthcheck:
       test:
@@ -71,7 +71,7 @@ services:
       - ./volumes/api/kong.yml:/home/kong/temp.yml:ro
 
   auth:
-    image: supabase/gotrue:v2.158.1
+    image: supabase/gotrue:v2.162.1
     depends_on:
       db:
         # Disable this if you are using an external Postgres database
@@ -160,7 +160,7 @@ services:
 
   realtime:
     # This container name looks inconsistent but is correct because realtime constructs tenant id by parsing the subdomain
-    image: supabase/realtime:v2.30.23
+    image: supabase/realtime:latest
     depends_on:
       db:
         # Disable this if you are using an external Postgres database
@@ -203,7 +203,7 @@ services:
 
   # To use S3 backed storage: docker compose -f docker-compose.yml -f docker-compose.s3.yml up
   storage:
-    image: supabase/storage-api:v1.10.1
+    image: supabase/storage-api:latest
     depends_on:
       db:
         # Disable this if you are using an external Postgres database
@@ -260,7 +260,7 @@ services:
       - ./volumes/storage:/var/lib/storage:z
 
   meta:
-    image: supabase/postgres-meta:v0.83.2
+    image: supabase/postgres-meta:v0.84.0
     depends_on:
       db:
         # Disable this if you are using an external Postgres database
@@ -277,7 +277,7 @@ services:
       PG_META_DB_PASSWORD: ${POSTGRES_PASSWORD}
 
   functions:
-    image: supabase/edge-runtime:v1.56.1
+    image: supabase/edge-runtime:v1.58.11
     restart: unless-stopped
     depends_on:
       analytics:
